@@ -28,6 +28,7 @@ export interface ArtColumnStaticPart {
 
   /** 表头单元格的 props */
   headerCellProps?: CellProps
+  expanded?: boolean
 
   /** 功能开关 */
   features?: { [key: string]: any }

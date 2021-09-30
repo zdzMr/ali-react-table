@@ -211,10 +211,9 @@ export function 动态表格行高度() {
   const [openKeys, onChangeOpenKeys] = useState<string[]>([])
 
   const pipeline = useTablePipeline({ components: fusion as any })
-    .input({ dataSource, columns })
+    .input({ dataSource, columns: columns.map(col => ({...columns, render: ()=> {return 's'}})) as any })
     .primaryKey('id')
     .use(features.rowDetail({ openKeys, onChangeOpenKeys, renderDetail }))
-
   return (
     <div>
       <p>

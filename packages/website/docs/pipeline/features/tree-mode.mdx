@@ -3,15 +3,17 @@ id: tree-mode
 title: 树状模式
 ---
 
-让表格支持树形数据的展示，当数据中有 children 字段时会自动展示为树形表格。可以通过设置 indentSize 以控制每一层的缩进宽度。
+让表格支持树形s数据的展示，当数据中有 children 字段时会自动展示为树形表格。可以通过设置 indentSize 以控制每一层的缩进宽度。
 
 ### 示例
 
 ```jsx live
 function 树形表格() {
   const { dataSource4, columns4 } = assets.biz
-  const pipeline = useTablePipeline({ components: fusion })
-    .input({ dataSource: dataSource4, columns: columns4 })
+  let expandedColumns = columns4.map(v => v.code === 'guide' ? ({...v, expanded: true, render: (value) => {return <span>'sss'</span>}}) : { ...v, render: ()=> {return 'aa'}})
+  console.log(expandedColumns,'expandedColumns')
+  const pipeline = useTablePipeline()
+    .input({ dataSource: dataSource4, columns: expandedColumns })
     .primaryKey('id')
     .use(
       features.treeMode({
@@ -19,6 +21,10 @@ function 树形表格() {
         clickArea: 'cell',
       }),
     )
+
+    console.log(expandedColumns, 'expandedColumns')
+
+
 
   return <BaseTable {...pipeline.getProps()} />
 }
